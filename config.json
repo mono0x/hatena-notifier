@@ -1,0 +1,8 @@
+{
+  "name": "Hatena Notifier",
+  "appid": "hgmpmbebgkjdfhccpekclailffkbaneo",
+  "source_dir": "src",
+  "pem_file": "hatena-notifier.pem",
+  "crx_file": "output/hatena-notifier.crx",
+  "zip_file": "output/hatena-notifier.zip"
+}
