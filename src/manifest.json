@@ -9,9 +9,11 @@
       "lib/jquery-1.7.1.min.js",
       "lib/background.js",
       "lib/analytics.js"
-    ]
+    ],
+    "persistent": false
   },
   "permissions": [
+    "alarms",
     "tabs",
     "notifications",
     "storage",

@@ -1,11 +1,9 @@
 
-var INTERVAL = 5 * 60;
+var INTERVAL = 5;
 var TIMEOUT  = 10;
 
 var ICON_URL = 'http://cdn.www.st-hatena.com/images/header/notify.png';
 var LOGIN_URL = 'https://www.hatena.ne.jp/login';
-
-var errorShown = false;
 
 function notify(image, title, text, url) {
   var notification = webkitNotifications.createNotification(image, title, text);
@@ -19,7 +17,7 @@ function notify(image, title, text, url) {
   }, TIMEOUT * 1000);
 }
 
-setInterval(function() {
+function update() {
   $.ajax({
     url: 'http://www.hatena.ne.jp/notify/notices.iframe'
   }).done(function(data) {
@@ -39,11 +37,19 @@ setInterval(function() {
         notify(image, 'あなたへのお知らせ', body.text(), url);
       }
     });
-    errorShown = false;
+    localStorage.errorShown = false;
   }).fail(function(xhr, textStatus, errorThrown) {
-    if(!errorShown) {
+    if(!localStorage.errorShown) {
       notify(ICON_URL, 'エラー', xhr.statusText, LOGIN_URL);
-      errorShown = true;
+      localStorage.errorShown = true;
     }
   });
-}, INTERVAL * 1000);
+}
+
+chrome.runtime.onInstalled.addListener(function() {
+  localStorage.errorShown = false;
+  chrome.alarms.create({ periodInMinutes: INTERVAL });
+  chrome.alarms.onAlarm.addListener(function() {
+    update();
+  });
+});
