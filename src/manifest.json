@@ -3,12 +3,10 @@
   "name": "Hatena Notifier",
   "version": "0.0.1",
   "description": "Notify events on Hatena",
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
   "background": {
     "scripts": [
       "lib/jquery-1.7.1.min.js",
-      "lib/background.js",
-      "lib/analytics.js"
+      "lib/background.js"
     ],
     "persistent": false
   },
